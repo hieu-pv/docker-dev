@@ -6,7 +6,7 @@ services:
     build:
       context: ./.docker/
       dockerfile: php72.dockerfile
-    working_dir: /var/www/laravel
+    working_dir: /var/www/laravel/
     volumes:
       - ./:/var/www/laravel/
 
@@ -31,8 +31,14 @@ services:
       - "MYSQL_USER=laravel"
       - "MYSQL_PASSWORD=secret"
       - "MYSQL_ROOT_PASSWORD=secret"
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - "PMA_HOST=database"
+      - "PMA_PORT=3306"
     ports:
-        - "33061:3306"
+      - "8081:80"
 
 volumes:
   dbdata:
