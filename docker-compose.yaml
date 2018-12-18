@@ -6,9 +6,9 @@ services:
     build:
       context: ./.docker/
       dockerfile: php72.dockerfile
-    working_dir: /var/www/laravel/
+    working_dir: /var/www/app/
     volumes:
-      - ./:/var/www/laravel/
+      - ./:/var/www/app/
 
   # The Web Server
   nginx:
@@ -17,7 +17,7 @@ services:
       dockerfile: nginx.dockerfile
     working_dir: /var/www
     volumes:
-      - ./:/var/www/laravel/
+      - ./:/var/www/app/
     ports:
       - 8080:80
 
