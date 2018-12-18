@@ -1,6 +1,5 @@
-version: '3'
+version: "3.5"
 services:
-
   # The Application
   php:
     build:
@@ -9,6 +8,7 @@ services:
     working_dir: /var/www/app/
     volumes:
       - ./:/var/www/app/
+    restart: always
 
   # The Web Server
   nginx:
@@ -18,17 +18,19 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www/app/
+    restart: always
     ports:
-      - 8080:80
+      - 8800:80
 
   # The Database
   database:
     image: mysql:5.7
     volumes:
       - dbdata:/var/lib/mysql
+    restart: always
     environment:
-      - "MYSQL_DATABASE=laravel"
-      - "MYSQL_USER=laravel"
+      # - "MYSQL_DATABASE=laravel"
+      - "MYSQL_USER=remote"
       - "MYSQL_PASSWORD=secret"
       - "MYSQL_ROOT_PASSWORD=secret"
   # phpMyAdmin
@@ -38,7 +40,11 @@ services:
       - "PMA_HOST=database"
       - "PMA_PORT=3306"
     ports:
-      - "8081:80"
+      - "8801:80"
+    restart: always
 
 volumes:
   dbdata:
+networks:
+  vicoders:
+    name: vicoders_docker_network
