@@ -5,9 +5,18 @@ services:
     build:
       context: ./.docker/
       dockerfile: php72.dockerfile
-    working_dir: /var/www/app/
+    working_dir: /var/www/
     volumes:
-      - ./:/var/www/app/
+      - /Users/hieupv/Works/Projects:/var/www/
+      - /Users/hieupv/Works/Projects:/var/www/
+    restart: always
+  php56:
+    build:
+      context: ./.docker/
+      dockerfile: php56.dockerfile
+    working_dir: /var/www/
+    volumes:
+      - /Users/hieupv/Works/Projects:/var/www/
     restart: always
 
   # The Web Server
@@ -17,7 +26,8 @@ services:
       dockerfile: nginx.dockerfile
     working_dir: /var/www
     volumes:
-      - ./:/var/www/app/
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+      - /Users/hieupv/Works/Projects:/var/www/
     restart: always
     ports:
       - 8800:80
@@ -45,6 +55,3 @@ services:
 
 volumes:
   dbdata:
-networks:
-  vicoders:
-    name: vicoders_docker_network

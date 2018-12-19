@@ -3,6 +3,9 @@ ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ./nginx/conf.d/ /etc/nginx/conf.d/
 
 
+RUN apt-get update \
+    && apt-get install iputils-ping -y --no-install-recommends
+
 # Add phpMyAdmin
 # ARG PHP_MYADMIN_INSTALL_DIR=/var/www/phpmyadmin
 # ARG DOWNLOAD_URL=file:///tmp/phpMyAdmin-4.8.1-english.tar.gz

@@ -1,10 +1,10 @@
-FROM php:7.2.6-fpm
+FROM php:5.6-fpm
 
 RUN apt-get update && apt-get install -y mysql-server libmagickwand-dev --no-install-recommends\ 
     && apt-get install git-core -y --no-install-recommends \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
-    && pecl install xdebug \
+    && pecl install xdebug-2.5.5 \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-install pdo_mysql \
     && apt-get install iputils-ping -y --no-install-recommends
