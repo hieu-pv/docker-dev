@@ -30,3 +30,8 @@ RUN apt-get install -y zlib1g-dev \
 
 # Install composer
 RUN curl -o /usr/local/bin/composer https://getcomposer.org/composer.phar && chmod +x /usr/local/bin/composer
+
+
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+RUN docker-php-ext-install mysqli

@@ -9,6 +9,7 @@ services:
     volumes:
       - /Users/hieupv/Works/Projects:/var/www/
       - /Users/hieupv/Works/Projects:/var/www/
+      - ./.docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
     restart: always
   php5:
     build:
