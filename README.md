@@ -1,5 +1,5 @@
 # Installation
 
-> With existing Laravel / Lumen project
+> With existing project
 
-curl -L https://github.com/hieu-pv/docker-laravel/archive/1.0.0.tar.gz | tar -xz --strip-components=1 -C $(pwd)
+curl -L https://github.com/hieu-pv/docker-dev/archive/master.zip | tar -xz --strip-components=1 -C $(pwd)
