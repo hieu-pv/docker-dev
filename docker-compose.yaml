@@ -1,29 +1,29 @@
 version: "3.5"
 services:
-  # The Application
   php:
     build:
-      context: ./.docker/
-      dockerfile: php72.dockerfile
+      context: ./.docker/php/fpm
+      args:
+       PHP_VERSION: $PHP_VERSION
     working_dir: /var/www/
     volumes:
       - /Users/hieupv/Works/Projects:/var/www/
       - /Users/hieupv/Works/Projects:/var/www/
     restart: always
-  php56:
+  php5:
     build:
-      context: ./.docker/
-      dockerfile: php56.dockerfile
+      context: ./.docker/php/fpm/php5/
+      args:
+       PHP5_VERSION: ${PHP5_VERSION}
     working_dir: /var/www/
     volumes:
       - /Users/hieupv/Works/Projects:/var/www/
     restart: always
-
-  # The Web Server
   nginx:
     build:
-      context: ./.docker/
-      dockerfile: nginx.dockerfile
+      context: ./.docker/nginx/
+      args:
+       NGINX_VERSION: ${NGINX_VERSION}
     working_dir: /var/www
     volumes:
       - ./.docker/nginx/conf.d:/etc/nginx/conf.d
@@ -34,12 +34,11 @@ services:
 
   # The Database
   database:
-    image: mysql:5.7
+    image: mysql:${MYSQL_VERSION:-latest}
     volumes:
       - dbdata:/var/lib/mysql
     restart: always
     environment:
-      # - "MYSQL_DATABASE=laravel"
       - "MYSQL_USER=remote"
       - "MYSQL_PASSWORD=secret"
       - "MYSQL_ROOT_PASSWORD=secret"
