@@ -7,8 +7,8 @@ services:
        PHP_VERSION: $PHP_VERSION
     working_dir: /var/www/
     volumes:
-      - /Users/hieupv/Works/Projects:/var/www/
-      - /Users/hieupv/Works/Projects:/var/www/
+      - $PROJECT_DIRECTORY:/var/www/
+      - $PROJECT_DIRECTORY:/var/www/
       - ./.docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
     restart: always
   php5:
@@ -18,7 +18,7 @@ services:
        PHP5_VERSION: ${PHP5_VERSION}
     working_dir: /var/www/
     volumes:
-      - /Users/hieupv/Works/Projects:/var/www/
+      - $PROJECT_DIRECTORY:/var/www/
     restart: always
   nginx:
     build:
@@ -29,10 +29,12 @@ services:
     volumes:
       - ./.docker/nginx/conf.d:/etc/nginx/conf.d
       - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /Users/hieupv/Works/Projects:/var/www/
+      - ./.docker/nginx/certificates:/etc/certificates
+      - $PROJECT_DIRECTORY:/var/www/
     restart: always
     ports:
-      - 8800:80
+      - $NGINX_PORT:80
+      - 443:443
 
   # The Database
   database:
@@ -51,7 +53,7 @@ services:
       - "PMA_HOST=database"
       - "PMA_PORT=3306"
     ports:
-      - "8801:80"
+      - $PHPMYADMIN_PORT:80
     restart: always
 
 volumes:
