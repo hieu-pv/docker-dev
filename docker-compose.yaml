@@ -2,34 +2,49 @@ version: "3.5"
 services:
   php:
     build:
-      context: ./.docker/php/fpm
+      context: ./docker/php/fpm
       args:
-       PHP_VERSION: $PHP_VERSION
+        DEFLAUNT_PHP_VERSION: $DEFLAUNT_PHP_VERSION
+    container_name: vicoders_php
     working_dir: /var/www/
     volumes:
       - $PROJECT_DIRECTORY:/var/www/
       - $PROJECT_DIRECTORY:/var/www/
-      - ./.docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
+      - ./docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
+    restart: always
+  php7:
+    build:
+      context: ./docker/php/fpm
+      args:
+        DEFLAUNT_PHP_VERSION: $PHP7_VERSION
+    container_name: vicoders_php7
+    working_dir: /var/www/
+    volumes:
+      - $PROJECT_DIRECTORY:/var/www/
+      - $PROJECT_DIRECTORY:/var/www/
+      - ./docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
     restart: always
   php5:
     build:
-      context: ./.docker/php/fpm/php5/
+      context: ./docker/php/fpm/php5/
       args:
-       PHP5_VERSION: ${PHP5_VERSION}
+        PHP5_VERSION: ${PHP5_VERSION}
+    container_name: vicoders_php5
     working_dir: /var/www/
     volumes:
       - $PROJECT_DIRECTORY:/var/www/
     restart: always
   nginx:
     build:
-      context: ./.docker/nginx/
+      context: ./docker/nginx/
       args:
-       NGINX_VERSION: ${NGINX_VERSION}
+        NGINX_VERSION: ${NGINX_VERSION}
+    container_name: vicoders_nginx
     working_dir: /var/www
     volumes:
-      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./.docker/nginx/certificates:/etc/certificates
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/certificates:/etc/certificates
       - $PROJECT_DIRECTORY:/var/www/
     restart: always
     ports:
@@ -39,6 +54,7 @@ services:
   # The Database
   database:
     image: mysql:${MYSQL_VERSION:-latest}
+    container_name: vicoders_database
     volumes:
       - dbdata:/var/lib/mysql
     restart: always
@@ -49,6 +65,7 @@ services:
   # phpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: vicoders_phpmyadmin
     environment:
       - "PMA_HOST=database"
       - "PMA_PORT=3306"
