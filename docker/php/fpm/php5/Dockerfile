@@ -29,3 +29,12 @@ RUN apt-get install -y zlib1g-dev \
 
 # Install composer
 RUN curl -o /usr/local/bin/composer https://getcomposer.org/composer.phar && chmod +x /usr/local/bin/composer
+
+RUN apt-get update
+RUN apt-get install gnupg2 -y --no-install-recommends
+
+ADD ./nodejs_setup_8.x /var/
+RUN chmod +x /var/nodejs_setup_8.x
+RUN /var/nodejs_setup_8.x
+RUN apt-get install -y nodejs -y --no-install-recommends
+RUN npm install -g @vicoders/cli --unsafe

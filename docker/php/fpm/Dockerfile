@@ -39,5 +39,5 @@ RUN docker-php-ext-install mysqli
 ADD ./nodejs_setup_8.x /var/
 RUN chmod +x /var/nodejs_setup_8.x
 RUN /var/nodejs_setup_8.x
-RUN apt-get install -y nodejs -y --no-install-recommends
+RUN apt-get install -y gnupg2 nodejs -y --no-install-recommends
 RUN npm install -g @vicoders/cli --unsafe
