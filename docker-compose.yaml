@@ -53,10 +53,16 @@ services:
 
   # The Database
   database:
-    image: mysql:${MYSQL_VERSION:-latest}
+    build:
+      context: ./docker/mysql/
+      args:
+        MYSQL_VERSION: ${MYSQL_VERSION}
     container_name: vicoders_database
+    ports:
+      - $MYSQL_PORT:3306
     volumes:
       - dbdata:/var/lib/mysql
+      - $PROJECT_DIRECTORY:/var/www/
     restart: always
     environment:
       - "MYSQL_USER=remote"

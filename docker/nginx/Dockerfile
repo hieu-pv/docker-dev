@@ -5,4 +5,4 @@ ADD ./conf.d/ /etc/nginx/conf.d/
 
 
 RUN apt-get update \
-    && apt-get install iputils-ping -y --no-install-recommends
+    && apt-get install iputils-ping curl -y --no-install-recommends
