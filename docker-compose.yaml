@@ -12,18 +12,6 @@ services:
       - $PROJECT_DIRECTORY:/var/www/
       - ./docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
     restart: always
-  php7:
-    build:
-      context: ./docker/php/fpm
-      args:
-        DEFLAUNT_PHP_VERSION: $PHP7_VERSION
-    container_name: vicoders_php7
-    working_dir: /var/www/
-    volumes:
-      - $PROJECT_DIRECTORY:/var/www/
-      - $PROJECT_DIRECTORY:/var/www/
-      - ./docker/php/fpm/php.ini-development:/usr/local/etc/php/php.ini
-    restart: always
   php5:
     build:
       context: ./docker/php/fpm/php5/
